@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   	Payment
+ * @package    	Strobe_VisaNet
+ * @copyright   Copyright (c) 2010 Strobe IT Team
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Strobe_VisaNet>
+            <version>0.9</version>
+        </Strobe_VisaNet>
+    </modules>
+    <global>
+        <models>
+            <visanet>
+                <class>Strobe_VisaNet_Model</class>
+                <!--<resourceModel>safetypay_mysql4</resourceModel>-->
+            </visanet>
+            <!--<safetypay_mysql4>
+                <class>Mage_SafetyPay_Model_Mysql4</class>
+                <entities>
+                    <express_debug><table>safetypay_express_debug</table></express_debug>
+                </entities>
+            </safetypay_mysql4>-->
+        </models>
+        <!--<resources>
+            <safetypay_setup>
+                <setup>
+                    <module>Mage_SafetyPay</module>
+                    <class>Mage_SafetyPay_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </safetypay_setup>
+            <safetypay_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </safetypay_write>
+            <safetypay_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </safetypay_read>
+        </resources>-->
+        <blocks>
+            <visanet><class>Strobe_VisaNet_Block</class></visanet>
+        </blocks>
+        <helpers>
+            <visanet><class>Strobe_VisaNet_Helper</class></visanet>
+        </helpers>
+        <sales>
+            <order>
+                <statuses>
+                    <payment_confirmed_visanet translate="label"><label>Confirmed Payment by VisaNet</label></payment_confirmed_visanet>
+                </statuses>
+                <states>
+                    <processing>
+                        <statuses>
+                            <payment_confirmed_visanet/>
+                        </statuses>
+                        <visible_on_front/>
+                    </processing>
+                </states>
+            </order>
+        </sales>
+        <payment>
+            <cc>
+                <types>
+                    <VI>
+                        <code>VI</code>
+                        <name>Visa</name>
+                        <order>60</order>
+                    </VI>
+                </types>
+            </cc>
+        </payment>
+        <!--<template>
+            <email>
+               <safetypay_paymentconfirmation>
+                   <label>SafetyPay payment confirmation email</label>
+                   <file>safetypay_paymentconfirmation.html</file>
+                   <type>html</type>
+               </safetypay_paymentconfirmation>
+            </email>
+        </template>-->
+    </global>
+    <frontend>
+        <routers>
+            <visanet>
+                <use>standard</use>
+                <args>
+                    <module>Strobe_VisaNet</module>
+                    <frontName>visanet</frontName>
+                </args>
+            </visanet>
+        </routers>
+        <!--<translate>
+            <modules>
+                <Mage_SafetyPay>
+                    <files>
+                        <default>Mage_SafetyPay.csv</default>
+                    </files>
+                </Mage_SafetyPay>
+            </modules>
+        </translate>-->
+        <layout>
+            <updates>
+                <visanet>
+                    <file>visanet.xml</file>
+                </visanet>
+            </updates>
+        </layout>
+    </frontend>
+    <!--<adminhtml>
+        <translate>
+            <modules>
+                <Mage_SafetyPay>
+                    <files>
+                        <default>Mage_SafetyPay.csv</default>
+                    </files>
+                </Mage_SafetyPay>
+            </modules>
+        </translate>
+    </adminhtml>-->
+    <default>
+        <payment>
+            <visanet_eticket>
+                <active>0</active>
+                <title>VisaNet</title>
+                <cctypes>VI</cctypes>
+                <allowspecific>0</allowspecific>
+                <sort_order>0</sort_order>
+                <model>visanet/eticket</model>
+                <protocol>https</protocol>
+            </visanet_eticket>
+        </payment>
+    </default>
+</config>
